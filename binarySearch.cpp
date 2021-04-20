@@ -8,6 +8,8 @@
 
 using namespace std;
 
+void searchLeft(int firstPageNum, int lastPageNum, int &leftPage, int &leftOffset, int num, FileHandler &fh);
+void searchRight(int firstPageNum, int lastPageNum, int &rightPage, int &rightOffset, int num, FileHandler &fh);
 
 int main(int argc, char *argv[]) {
   const char* inputFile = argv[1];
@@ -19,74 +21,61 @@ int main(int argc, char *argv[]) {
   string SEARCH;    // for reading the constant string SEARCH
   int num;    // reading the number to be searched for
 
+  FileManager fm;
+  FileHandler fh = fm.OpenFile (inputFile);
+  // memcpy (&num, &data[0], sizeof(int));   read in this way
+
+
+//TODO: UNCOMMENT
+  // FileHandler out = fm.CreateFile(outputFile); // creating the output file
+  // PageHandler outPageHandler = out.NewPage ();
+	// char *outPutData = outPageHandler.GetData ();
+  // int num = 5;
+	// memcpy (&data[0], &num, sizeof(int));     write like this
+
+
   while (query >> SEARCH){
     query >> num;
-    cout<<num<<endl;
+    cout<<"num: "<<num<<endl;
+
+    //ONE BINARY SEARCH STARTS HERE
+
+    //getting first and last pagenums
+    PageHandler first = fh.FirstPage();
+    int firstPageNum = first.GetPageNum();
+    fh.UnpinPage(firstPageNum);
+    PageHandler last = fh.LastPage();
+    int lastPageNum = last.GetPageNum();
+    fh.UnpinPage(lastPageNum);
+
+    int leftPage = -1;
+    int leftOffset = -1;
+    int rightPage = -1;
+    int rightOffset = -1;
+
+
+    searchLeft(firstPageNum,lastPageNum, leftPage, leftOffset, num, fh);
+    cout<<leftPage<<" "<<leftOffset<<endl;
+    searchRight(firstPageNum, lastPageNum,rightPage,rightOffset,num,fh);
+    cout<<rightPage<<" "<<rightOffset<<endl;
   }
 
-	FileManager fm;
-
-  FileHandler fh = fm.OpenFile (inputFile);
-  cout << "File opened" << endl;
-  int numPagesRead = 1;
-  PageHandler ph = fh.FirstPage ();
-  char* data = ph.GetData ();
-  int pageNum = ph.GetPageNum();
-  try{
-    while(true){
-      ph = fh.NextPage (pageNum);
-      data = ph.GetData ();
-      pageNum = ph.GetPageNum();
-      numPagesRead++;
-    }
-  }
-  catch(NoBufferSpaceException ex){
-    cout<<ex.what()<<" "<<numPagesRead<<endl;
-  }
-  //
-  // // Get the very first page and its data
-  // PageHandler ph = fh.FirstPage ();
-  // char* data = ph.GetData ();
-  //
-	// // Create the Output file
-	// FileHandler out = fm.CreateFile(outputFile);
-  //
-	// // Create a new page
-	// PageHandler ph = fh.NewPage ();
-	// char *data = ph.GetData ();
-  //
-	// // Store an integer at the very first location
-	// int num = 5;
-	// memcpy (&data[0], &num, sizeof(int));
-  //
-	// // Store an integer at the second location
-	// num = 1000;
-	// memcpy (&data[4], &num, sizeof(int));
-  //
-	// // Flush the page
-	// fh.FlushPages ();
-	// cout << "Data written and flushed" << endl;
-  //
-	// // Close the file
-	// fm.CloseFile(fh);
-  //
-	// // Reopen the same file, but for reading this time
-	// FileHandler fh = fm.OpenFile ("temp.txt");
-	// cout << "File opened" << endl;
-  //
-	// // Get the very first page and its data
-	// PageHandler ph = fh.FirstPage ();
-	// char* data = ph.GetData ();
-  //
-	// // Output the first integer
-	// memcpy (&num, &data[0], sizeof(int));
-	// cout << "First number: " << num << endl;
-  //
-	// // Output the second integer
-	// memcpy (&num, &data[4], sizeof(int));
-	// cout << "Second number: " << num << endl;;
-  //
-	// // Close the file and destory it
-	// fm.CloseFile (fh);
-	// fm.DestroyFile ("temp.txt");
 }
+
+
+
+
+
+
+
+// try{
+//   while(true){
+//     ph = fh.NextPage (pageNum);
+//     data = ph.GetData ();
+//     pageNum = ph.GetPageNum();
+//     numPagesRead++;
+//   }
+// }
+// catch(NoBufferSpaceException ex){
+//   cout<<ex.what()<<" "<<numPagesRead<<endl;
+// }
