@@ -16,18 +16,11 @@ void searchRight(int firstPageNum, int lastPageNum, int &rightPage, int &rightOf
     PageHandler midPage = fh.PageAt(mid);
     char* data = midPage.GetData ();
 
-    // bool allValuesNum = true;   // true if all values on the page = num, in this case look both left and right
-    // bool startingValueNum = false;  //start value = num. Binary search again to the left
-    // bool endingValueNum = false;  //ending value = num. Binary search to the right
     int first = 0;         // for reading
     int last = 0;
 
-    //linear search for that num in the page
-    // for(int i = 0;i<PAGE_CONTENT_SIZE;i=i+4){
     memcpy (&first, &data[0], sizeof(int));  //read the integer
     memcpy (&last, &data[PAGE_CONTENT_SIZE-4], sizeof(int));
-    // cout<<"last: "<<last<<endl;
-    // break;
 
     //BOOKKEEPING
     if(last == num){      //continue with the search for the left index. Update the variables just in case this was tthe first occurence
@@ -35,8 +28,6 @@ void searchRight(int firstPageNum, int lastPageNum, int &rightPage, int &rightOf
       rightPage = mid;
       rightOffset = PAGE_CONTENT_SIZE-4;
       firstPageNum = mid + 1;
-      // startingValueNum = true;
-      // break;
     }
 
     else if(last > num || last == INT_MIN){
@@ -59,23 +50,15 @@ void searchRight(int firstPageNum, int lastPageNum, int &rightPage, int &rightOf
       }
 
       else { // first > num. Search towards left
-        // cout<<"first<num last < num at "<<mid<<endl;
-        // if(rightPage > -1){ //already found at index 0 on next page
-        //   found = true;
-        //   break;
-        // }
         lastPageNum = mid - 1;
-        // break;
       }
     }
 
     else{   // last < num search towards right
-      // cout<<"first>num at "<<mid<<endl;
       firstPageNum = mid + 1;
     }
-
-    fh.UnpinPage(mid);
     // cout<<"Unpin"<<endl;
+    fh.UnpinPage(mid);
     if(found) break;
   }
 }
