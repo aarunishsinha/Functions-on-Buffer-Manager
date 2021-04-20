@@ -142,9 +142,6 @@ int main(int argc, char *argv[]) {
     for(;index<PAGE_CONTENT_SIZE-4;index+=4){
       int intmin = INT_MIN;
       memcpy (&outPutData[index], &intmin, sizeof(int));
-      index += 4;
-      checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
-      memcpy (&outPutData[index], &intmin, sizeof(int));
   }
 
 }
