@@ -88,8 +88,10 @@ int main(int argc, char *argv[]) {
 
           checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
           memcpy (&outPutData[index], &leftPage, sizeof(int));
-          memcpy (&outPutData[index+4], &i, sizeof(int));
-          index += 8;
+          index += 4;
+          checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
+          memcpy (&outPutData[index], &i, sizeof(int));
+          index += 4;
         }
       }
       else{
@@ -97,16 +99,20 @@ int main(int argc, char *argv[]) {
           //fetching new page if needed
           checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
           memcpy (&outPutData[index], &leftPage, sizeof(int));
-          memcpy (&outPutData[index+4], &i, sizeof(int));
-          index += 8;
+          index += 4;
+          checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
+          memcpy (&outPutData[index], &i, sizeof(int));
+          index += 4;
         }
 
         for(int j = leftPage+1;j<rightPage;j++){   //everything between left and right pages
           for(int i = 0; i<PAGE_CONTENT_SIZE;i+=4){
             checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
             memcpy (&outPutData[index], &j, sizeof(int));
-            memcpy (&outPutData[index+4], &i, sizeof(int));
-            index += 8;
+            index += 4;
+            checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
+            memcpy (&outPutData[index], &i, sizeof(int));
+            index += 4;
           }
         }
 
@@ -114,8 +120,10 @@ int main(int argc, char *argv[]) {
           //fetching new page if needed
           checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
           memcpy (&outPutData[index], &rightPage, sizeof(int));
-          memcpy (&outPutData[index+4], &i, sizeof(int));
-          index += 8;
+          index += 4;
+          checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
+          memcpy (&outPutData[index], &i, sizeof(int));
+          index += 4;
         }
       }
     }
@@ -124,15 +132,19 @@ int main(int argc, char *argv[]) {
     checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
     int minusOne = -1;
     memcpy (&outPutData[index], &minusOne, sizeof(int));
-    memcpy (&outPutData[index+4], &minusOne, sizeof(int));
-    index += 8;
+    index += 4;
+    checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
+    memcpy (&outPutData[index], &minusOne, sizeof(int));
+    index += 4;
     //fill the rest with INTIMIN
 
     }
     for(;index<PAGE_CONTENT_SIZE-4;index+=4){
       int intmin = INT_MIN;
       memcpy (&outPutData[index], &intmin, sizeof(int));
-      memcpy (&outPutData[index+4], &intmin, sizeof(int));
+      index += 4;
+      checkNewPage(index, outPageNum, outPageHandler, out, outPutData);
+      memcpy (&outPutData[index], &intmin, sizeof(int));
   }
 
 }
