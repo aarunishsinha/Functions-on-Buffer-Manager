@@ -36,7 +36,7 @@ int main(int argc, char *argv[]) {
   // fm.PrintBuffer();
   while (query >> SEARCH){
     query >> num;
-    cout<<num<<endl;
+    // cout<<num<<endl;
 
     PageHandler ph = fh_read.FirstPage ();
 
@@ -59,10 +59,10 @@ int main(int argc, char *argv[]) {
           memcpy(&num_read,&data[i],sizeof(int));
           // cout<<num_read<<endl;
           if(num_read==num){      // FOUND THE INTEGER IN QUERY
-            cout<<"Found One!"<<endl;
+            // cout<<"Found One!"<<endl;
             // Check if page is filled
             if(out_iter>=PAGE_CONTENT_SIZE){
-              cout<<"Page Written:"<<out_curr<<endl;
+              // cout<<"Page Written:"<<out_curr<<endl;
               out_iter=0;
               ph_out = fh_write.NewPage();
               fh_write.UnpinPage(out_curr);
@@ -70,29 +70,29 @@ int main(int argc, char *argv[]) {
               fh_write.FlushPage(out_curr);
               // ph_out = fh_write.NewPage();
               out_curr = ph_out.GetPageNum();
-              cout<<"Page Created:"<<out_curr<<endl;
+              // cout<<"Page Created:"<<out_curr<<endl;
               write_data = ph_out.GetData();
             }
             // Write the page number in output
             memcpy(&write_data[out_iter], &curr, sizeof(int));
             out_iter+=4;
-            cout<<"Wrote:"<<curr<<endl;
+            // cout<<"Wrote:"<<curr<<endl;
             // Check if page is filled
             if(out_iter>=PAGE_CONTENT_SIZE){
-              cout<<"Page Written:"<<out_curr<<endl;
+              // cout<<"Page Written:"<<out_curr<<endl;
               out_iter=0;
               ph_out = fh_write.NewPage();
               fh_write.UnpinPage(out_curr);
               fh_write.MarkDirty(out_curr);
               fh_write.FlushPage(out_curr);
               out_curr = ph_out.GetPageNum();
-              cout<<"Page Created:"<<out_curr<<endl;
+              // cout<<"Page Created:"<<out_curr<<endl;
               write_data = ph_out.GetData();
             }
             // Write offset in output
             memcpy(&write_data[out_iter], &offset, sizeof(int));
             out_iter+=4;
-            cout<<"Wrote:"<<offset<<endl;
+            // cout<<"Wrote:"<<offset<<endl;
           }
           if(num_read==INT_MIN){
             break;
@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
     // Output (-1,-1)
     // Check if page is filled
     if(out_iter>=PAGE_CONTENT_SIZE){
-      cout<<"Page Written:"<<out_curr<<endl;
+      // cout<<"Page Written:"<<out_curr<<endl;
       out_iter=0;
       ph_out = fh_write.NewPage();
       fh_write.UnpinPage(out_curr);
@@ -120,16 +120,16 @@ int main(int argc, char *argv[]) {
       fh_write.FlushPage(out_curr);
       // ph_out = fh_write.NewPage();
       out_curr = ph_out.GetPageNum();
-      cout<<"Page Created:"<<out_curr<<endl;
+      // cout<<"Page Created:"<<out_curr<<endl;
       write_data = ph_out.GetData();
     }
     offset = -1;
     memcpy(&write_data[out_iter], &offset, sizeof(int));
     out_iter+=4;
-    cout<<"Wrote:"<<offset<<endl;
+    // cout<<"Wrote:"<<offset<<endl;
     // Check if page is filled
     if(out_iter>=PAGE_CONTENT_SIZE){
-      cout<<"Page Written:"<<out_curr<<endl;
+      // cout<<"Page Written:"<<out_curr<<endl;
       out_iter=0;
       ph_out = fh_write.NewPage();
       fh_write.UnpinPage(out_curr);
@@ -137,13 +137,13 @@ int main(int argc, char *argv[]) {
       fh_write.FlushPage(out_curr);
       // ph_out = fh_write.NewPage();
       out_curr = ph_out.GetPageNum();
-      cout<<"Page Created:"<<out_curr<<endl;
+      // cout<<"Page Created:"<<out_curr<<endl;
       write_data = ph_out.GetData();
     }
     // Write offset in output
     memcpy(&write_data[out_iter], &offset, sizeof(int));
     out_iter+=4;
-    cout<<"Wrote:"<<offset<<endl;
+    // cout<<"Wrote:"<<offset<<endl;
     break;
   }
   // Store INT_MIN in the remaining positions
@@ -153,30 +153,30 @@ int main(int argc, char *argv[]) {
     out_iter+= (sizeof(int));
   }
 
-  // Printing Output
-  int curr = 0;
-  int firstPage = 0;
-  int lastPage = 0;
-  PageHandler p = fh_write.FirstPage();
-  firstPage = p.GetPageNum();
-  fh_write.UnpinPage(firstPage);
-  fh_write.FlushPage(firstPage);
-  p = fh_write.LastPage();
-  lastPage = p.GetPageNum();
-  fh_write.UnpinPage(lastPage);
-  fh_write.FlushPage(lastPage);
-  curr = firstPage;
-  char* data;
-  int num1;
-  while(curr<=lastPage){
-    p = fh_write.PageAt(curr);
-    data = p.GetData();
-    for(int i=0;i<PAGE_CONTENT_SIZE;i+=4){
-      memcpy(&num1, &data[i], sizeof(int));
-      cout<<curr<<","<<i/4<<":"<<num1<<endl;
-    }
-    curr++;
-  }
+  // // Printing Output
+  // int curr = 0;
+  // int firstPage = 0;
+  // int lastPage = 0;
+  // PageHandler p = fh_write.FirstPage();
+  // firstPage = p.GetPageNum();
+  // fh_write.UnpinPage(firstPage);
+  // fh_write.FlushPage(firstPage);
+  // p = fh_write.LastPage();
+  // lastPage = p.GetPageNum();
+  // fh_write.UnpinPage(lastPage);
+  // fh_write.FlushPage(lastPage);
+  // curr = firstPage;
+  // char* data;
+  // int num1;
+  // while(curr<=lastPage){
+  //   p = fh_write.PageAt(curr);
+  //   data = p.GetData();
+  //   for(int i=0;i<PAGE_CONTENT_SIZE;i+=4){
+  //     memcpy(&num1, &data[i], sizeof(int));
+  //     cout<<curr<<","<<i/4<<":"<<num1<<endl;
+  //   }
+  //   curr++;
+  // }
 
   fm.CloseFile(fh_read);
   fm.CloseFile(fh_write);
