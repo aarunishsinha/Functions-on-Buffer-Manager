@@ -11,7 +11,7 @@ using namespace std;
 int main() {
 	FileManager fm;
 
-	FileHandler fh = fm.OpenFile ("TestCases/TC_search/output_search_my");
+	FileHandler fh = fm.OpenFile ("TestCases/TC_delete/sorted_input");
 	cout << "File opened" << endl;
 
 	// Get the very first page and its data
