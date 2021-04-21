@@ -51,20 +51,20 @@ int main(int argc, char *argv[]) {
   int index = 0;
   int outPageNum = 0;
 
+  //getting first and last pagenums
+  PageHandler first = fh.FirstPage();
+  int firstPageNum = first.GetPageNum();
+  fh.UnpinPage(firstPageNum);
+  PageHandler last = fh.LastPage();
+  int lastPageNum = last.GetPageNum();
+  fh.UnpinPage(lastPageNum);
+
+
   while (query >> SEARCH){
     query >> num;
     // cout<<"num: "<<num<<endl;
 
     //ONE BINARY SEARCH STARTS HERE
-
-    //getting first and last pagenums
-    PageHandler first = fh.FirstPage();
-    int firstPageNum = first.GetPageNum();
-    fh.UnpinPage(firstPageNum);
-    PageHandler last = fh.LastPage();
-    int lastPageNum = last.GetPageNum();
-    fh.UnpinPage(lastPageNum);
-
     int leftPage = -1;
     int leftOffset = -1;
     int rightPage = -1;
