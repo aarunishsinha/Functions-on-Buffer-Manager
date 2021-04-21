@@ -119,9 +119,10 @@ int main(int argc, char *argv[]) {
         }
         if(leftOffsetIndex >= PAGE_CONTENT_SIZE){   //then right is definitely on next page or so
           // Evicting
-          fh.UnpinPage(leftPageIndex);
+          // cout<<"Flushing Page: "<<left.GetPageNum()<<endl;
           fh.MarkDirty(leftPageIndex);
-          fh.FlushPage(leftPageIndex);
+          fh.UnpinPage(leftPageIndex);
+          // fh.FlushPage(leftPageIndex);
           //updating
           leftPageIndex+=1;
           leftOffsetIndex = 0;
@@ -140,19 +141,35 @@ int main(int argc, char *argv[]) {
         cout<<"Right: "<<rightPageIndex<<" "<<rightOffsetIndex<<endl;
 
         int temp;
+
         memcpy (&temp, &rightData[rightOffsetIndex], sizeof(int));
+        // cout<<"Temp: "<<temp<<endl;
         memcpy (&leftData[leftOffsetIndex], &temp, sizeof(int));
+        // int temp2;
+        // memcpy (&temp2, &leftData[leftOffsetIndex], sizeof(int));
+        // cout<<"temp: "<<temp<<"temp2: "<<temp2<<endl;
         leftOffsetIndex+=4;
         rightOffsetIndex+=4;
+
+
       }
 
       lastPageNum = leftPageIndex;      // next binary search will take lesser time
-      for(int i =leftOffsetIndex; i<PAGE_CONTENT_SIZE-4;i+=4){    // writing all intmins on that page for the next binary search
+      for(int i =leftOffsetIndex; i<PAGE_CONTENT_SIZE;i+=4){    // writing all intmins on that page for the next binary search
         int intmin = INT_MIN;
         memcpy (&leftData[i], &intmin, sizeof(int));
       }
+      fh.MarkDirty(leftPageIndex);
+      fh.UnpinPage(leftPageIndex);
+      if(leftPageIndex!=rightPageIndex)
+        fh.UnpinPage(rightPageIndex);
+      fh.FlushPages();
+
     }
   }
+  fm.CloseFile(fh);
+  // fh.FlushPages();
+
 
   // deleting remaining pages
     // for(;leftOffsetIndex<PAGE_CONTENT_SIZE-4;leftOffsetIndex+=4){
