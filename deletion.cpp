@@ -137,12 +137,14 @@ int main(int argc, char *argv[]) {
           }
         }
 
-        cout<<"Left: "<<leftPageIndex<<" "<<leftOffsetIndex<<endl;
-        cout<<"Right: "<<rightPageIndex<<" "<<rightOffsetIndex<<endl;
+        // cout<<"Left: "<<leftPageIndex<<" "<<leftOffsetIndex<<endl;
+        // cout<<"Right: "<<rightPageIndex<<" "<<rightOffsetIndex<<endl;
 
         int temp;
 
         memcpy (&temp, &rightData[rightOffsetIndex], sizeof(int));
+        if(temp ==INT_MIN)
+          break;
         // cout<<"Temp: "<<temp<<endl;
         memcpy (&leftData[leftOffsetIndex], &temp, sizeof(int));
         // int temp2;
@@ -155,6 +157,7 @@ int main(int argc, char *argv[]) {
       }
 
       lastPageNum = leftPageIndex;      // next binary search will take lesser time
+      cout<<lastPageNum<<endl;
       for(int i =leftOffsetIndex; i<PAGE_CONTENT_SIZE;i+=4){    // writing all intmins on that page for the next binary search
         int intmin = INT_MIN;
         memcpy (&leftData[i], &intmin, sizeof(int));
@@ -167,15 +170,17 @@ int main(int argc, char *argv[]) {
 
     }
   }
-  fm.CloseFile(fh);
+
   // fh.FlushPages();
 
 
-  // deleting remaining pages
-    // for(;leftOffsetIndex<PAGE_CONTENT_SIZE-4;leftOffsetIndex+=4){
-    //   int intmin = INT_MIN;
-    //   memcpy (&leftData[leftOffsetIndex], &intmin, sizeof(int));
-    // }
+  //deleting remaining pages
+  cout<<originalLastPageNum<<endl<<lastPageNum<<endl;
+  for(int i = originalLastPageNum;i>lastPageNum;i--){
+    fh.DisposePage(i);
+  }
+  fm.CloseFile(fh);
+
 
 }
 
