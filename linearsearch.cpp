@@ -144,7 +144,7 @@ int main(int argc, char *argv[]) {
     memcpy(&write_data[out_iter], &offset, sizeof(int));
     out_iter+=4;
     // cout<<"Wrote:"<<offset<<endl;
-    break;
+    // break;
   }
   // Store INT_MIN in the remaining positions
   while(out_iter<PAGE_CONTENT_SIZE){
