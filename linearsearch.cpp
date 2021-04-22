@@ -64,10 +64,10 @@ int main(int argc, char *argv[]) {
             if(out_iter>=PAGE_CONTENT_SIZE){
               // cout<<"Page Written:"<<out_curr<<endl;
               out_iter=0;
-              ph_out = fh_write.NewPage();
               fh_write.UnpinPage(out_curr);
               fh_write.MarkDirty(out_curr);
               fh_write.FlushPage(out_curr);
+              ph_out = fh_write.NewPage();
               // ph_out = fh_write.NewPage();
               out_curr = ph_out.GetPageNum();
               // cout<<"Page Created:"<<out_curr<<endl;
@@ -81,10 +81,11 @@ int main(int argc, char *argv[]) {
             if(out_iter>=PAGE_CONTENT_SIZE){
               // cout<<"Page Written:"<<out_curr<<endl;
               out_iter=0;
-              ph_out = fh_write.NewPage();
+
               fh_write.UnpinPage(out_curr);
               fh_write.MarkDirty(out_curr);
               fh_write.FlushPage(out_curr);
+              ph_out = fh_write.NewPage();
               out_curr = ph_out.GetPageNum();
               // cout<<"Page Created:"<<out_curr<<endl;
               write_data = ph_out.GetData();
@@ -114,10 +115,11 @@ int main(int argc, char *argv[]) {
     if(out_iter>=PAGE_CONTENT_SIZE){
       // cout<<"Page Written:"<<out_curr<<endl;
       out_iter=0;
-      ph_out = fh_write.NewPage();
+
       fh_write.UnpinPage(out_curr);
       fh_write.MarkDirty(out_curr);
       fh_write.FlushPage(out_curr);
+      ph_out = fh_write.NewPage();
       // ph_out = fh_write.NewPage();
       out_curr = ph_out.GetPageNum();
       // cout<<"Page Created:"<<out_curr<<endl;
@@ -131,10 +133,11 @@ int main(int argc, char *argv[]) {
     if(out_iter>=PAGE_CONTENT_SIZE){
       // cout<<"Page Written:"<<out_curr<<endl;
       out_iter=0;
-      ph_out = fh_write.NewPage();
+
       fh_write.UnpinPage(out_curr);
       fh_write.MarkDirty(out_curr);
       fh_write.FlushPage(out_curr);
+      ph_out = fh_write.NewPage();
       // ph_out = fh_write.NewPage();
       out_curr = ph_out.GetPageNum();
       // cout<<"Page Created:"<<out_curr<<endl;
