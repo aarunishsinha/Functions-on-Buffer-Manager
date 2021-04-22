@@ -2,6 +2,7 @@ sampleobjects = buffer_manager.o file_manager.o sample_run.o
 linearsearchobjects = buffer_manager.o file_manager.o linearsearch.o
 binarysearchobjects = buffer_manager.o file_manager.o binarySearch.o binarySearchLeft.o binarySearchRight.o
 deletionObjects = deletion.o buffer_manager.o file_manager.o binarySearchLeft.o binarySearchRight.o
+join1objects = buffer_manager.o file_manager.o join1.o
 
 sample_run : $(sampleobjects)
 	     g++ -std=c++11 -o sample_run $(sampleobjects)
@@ -15,6 +16,9 @@ binarysearch : $(binarysearchobjects)
 
 deletion : $(deletionObjects)
 			 g++ -g -std=c++11 -o deletion $(deletionObjects)
+
+join1 : $(join1objects)
+			 g++ -g -std=c++11 -o join1 $(join1objects)
 
 deletion.o : deletion.cpp
 			 g++ -g -std=c++11 -c deletion.cpp
@@ -34,6 +38,9 @@ binarySearchLeft.o : binarySearchLeft.cpp
 binarySearchRight.o : binarySearchRight.cpp
 	g++ -g -std=c++11 -c binarySearchRight.cpp
 
+join1.o : join1.cpp
+	g++ -g -std=c++11 -c join1.cpp
+
 buffer_manager.o : buffer_manager.cpp
 	g++ -std=c++11 -c buffer_manager.cpp
 
@@ -43,7 +50,7 @@ file_manager.o : file_manager.cpp
 clean :
 	rm -f *.o
 	rm -f sample_run
-	rm -f linearsearch binarysearch deletioS
+	rm -f linearsearch binarysearch deletion join1
 
 rundeletion :
 	./deletion "TestCases/TC_delete/sorted_input" "TestCases/TC_delete/query_delete.txt"
