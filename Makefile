@@ -57,7 +57,7 @@ file_manager.o : file_manager.cpp
 clean :
 	rm -f *.o
 	rm -f sample_run
-	rm -f linearsearch binarysearch deletion join1
+	rm -f linearsearch binarysearch deletion join1 join2
 
 rundeletion :
 	./deletion "TestCases/TC_delete/sorted_input" "TestCases/TC_delete/query_delete.txt"
