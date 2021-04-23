@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
   ph_out = fh_out.NewPage();
   out_data = ph_out.GetData();
   int out_curr = ph_out.GetPageNum();
+  int temp = out_curr;
   int out_iter = 0;
 
   while(curr1<=inp1_last){
@@ -92,6 +93,9 @@ int main(int argc, char *argv[]) {
     int intmin=INT_MIN;
     memcpy(&out_data[out_iter],&intmin,sizeof(int));
     out_iter+= (sizeof(int));
+  }
+  if(out_curr==temp){
+    fh_out.DisposePage(out_curr);
   }
   // // Printing Output
   // int curr = 0;
