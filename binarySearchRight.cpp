@@ -4,6 +4,7 @@
 #include "errors.h"
 #include<cstring>
 #include <fstream>
+#include <climits>
 #include <bits/stdc++.h>
 
 void searchRight(int firstPageNum, int lastPageNum, int &rightPage, int &rightOffset, int num, FileHandler &fh){

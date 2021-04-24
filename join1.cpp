@@ -4,6 +4,7 @@
 #include "constants.h"
 #include <cstring>
 #include <fstream>
+#include <climits>
 
 using namespace std;
 
