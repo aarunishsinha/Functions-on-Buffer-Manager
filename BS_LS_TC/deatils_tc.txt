@@ -1,0 +1,16 @@
+const int BUFFER_SIZE=9;
+const int PAGE_SIZE=4100;
+
+// Testcases Linear Search
+Tc1 = 1.5 marks
+Tc2 = 1.5 marks
+Tc3 = 1.5 marks
+Tc4 = 1.5 marks
+Tc5 = 4 marks
+
+// Testcases Binary Search
+Tc1 = 2 marks
+Tc2 = 2 marks
+Tc3 = 2 marks
+Tc4 = 2 marks
+Tc5 = 7 marks

@@ -1,0 +1,38 @@
+const int BUFFER_SIZE=40;
+const int PAGE_SIZE=40;
+
+
+TESTCASE 1 ( No match between the input files ) [5m]
+
+input 1 - random input (1000 numbers, range: 0-99)
+input 2 - random input (1300 numbers, range: 200-299)
+
+
+TESTCASE 2 ( input 1 empty ) [2.5m]
+
+input 1 - empty file
+input 2 - random input (1500 numbers, range: 0-299)
+
+
+TESTCASE 3 ( input 2 empty ) [2.5m]
+
+input 1 - random input (1500 numbers, range: 0-299)
+input 2 - empty file
+
+
+TESTCASE 4 ( input 1 and input 2 are the same files, both sorted ) [5m]
+
+input 1 - random input (1300 numbers,  range: 0-199)
+input 2 - random input (1300 numbers,  range: 0-199)
+
+
+TESTCASE 5 ( large matching between the input files, no INT_MIN in sorted file ) [5m]
+
+input 1 - random input (700 numbers, range: 0-39)
+input 2 - random input (900 numbers, range: 0-39)
+
+
+TESTCASE 6 ( large matching between files, no INT_MIN in first file) [5m]
+
+input 1 - random input (900 numbers, range: 0-49)
+input 2 - random input (500 numbers, range: 0-49)

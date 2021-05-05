@@ -1,0 +1,50 @@
+PAGE_CONTENT_SIZE = 512
+PAGE_SIZE=516
+BUFFER_SIZE =2
+integers/page = 128
+
+
+Total 25 marks 
+
+
+TC1  (2 marks)
+
+input - empty file
+output - empty file
+query -  50 queries
+
+TC2 (5 marks)
+
+input - 5k integers (each number appears exactly once)
+query - 2k queries 
+
+TC3  (5 marks)
+
+input - 10k integers (each number may occur more than once)
+query - 1000 queries 
+
+TC4 (5 marks)
+
+input - 50k integers (frequency of each integer is high)
+query - 100 queries
+
+TC5 (5 marks)
+
+input - 5k intergers
+query - 500
+output - empty file
+
+Code (5 marks)
+some marks deducted if read/write count is too high compare to others or if code doesn't handle some corner cases.
+You will get marks for code only if atleast 1 testcase from TC2 to TC5 is correct.   
+
+
+To run, move all files including Deletion folder into you folder and run
+./checker.sh
+
+
+convert - It converts binary file into txt file
+Code changes input file itself so each time you run your code you have to copy this Deletion folder again.
+
+
+
